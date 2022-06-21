@@ -1,5 +1,7 @@
 import {Component} from 'react';
-import ImgText from '../Component/img-text'
+// import ImgText from '../Component/ImgText'
+import Components from '../Components'
+console.log('Components :>> ', Components);
 class List extends Component{
     componentList = [
         {
@@ -12,8 +14,8 @@ class List extends Component{
         const {onAddCompnent} = props;
         return (
             <ul>
-                {componentList.map((v, i)=>{
-                    return <li key={i} onClick={()=>onAddCompnent(ImgText)}>{v.name}</li>
+                {Components.map((v, i)=>{
+                    return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
                 })}
             </ul>
         )

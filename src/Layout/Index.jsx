@@ -1,9 +1,10 @@
 import {Component} from 'react';
 import List from './List'
 import Container from './Container'
+import './index.less'
+import {Layout} from 'antd'
 class Index extends Component{
-
-    pageConfig = [];
+    pageConfig = ['ImgText', 'BtnLink'];
     onAddCompnent = (component)=>{
         console.log(component)
         console.log('component.name :>> ', component.name);
@@ -14,10 +15,10 @@ class Index extends Component{
     render(){
         const {onAddCompnent, pageConfig} = this;
         return (
-            <div>
+            <Layout className='main'>
                 <List  onAddCompnent={onAddCompnent}></List>
                 <Container pageConfig={pageConfig}></Container>
-            </div>
+            </Layout>
         )
     }
 }
