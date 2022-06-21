@@ -15,7 +15,7 @@ class List extends Component{
     ]
     pageConfig = useSelector((state) => state.pageConfig)
      dispatch = useDispatch()
-    Add = ()=>{
+    add = ()=>{
         this.dispatch(addComponent())
     }
     render(){
@@ -23,7 +23,7 @@ class List extends Component{
         const {onAddCompnent} = props;
         return (
             <div className='left-list'>
-                <Button onClick={this.Add}>Add</Button>
+                <Button onClick={this.add}>Add</Button>
                 <ul className='left-list__main'>
                     {Components.map((v, i)=>{
                         return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
