@@ -3,6 +3,7 @@ import List from './List'
 import Container from './Container'
 import './index.less'
 import {Layout} from 'antd'
+
 class Index extends Component{
     pageConfig = ['ImgText', 'BtnLink'];
     onAddCompnent = (component)=>{

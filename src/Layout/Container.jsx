@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Loading from './components/Loading'
-
+import Extender from './components/Extender'
 export default class Container extends Component{
     state = {
         components: new Map() // 缓存已经加载的组件,name来区分
@@ -23,9 +23,8 @@ export default class Container extends Component{
                     // let MyComponent = React.lazy(()=> import('../Components/'+v)) // 每次的变更组件都会重进加载
                     let MyComponent = this.createNewComponent(v)
                     return (
-                        <React.Suspense key={i} fallback={<Loading/>}>
-                            <MyComponent></MyComponent>
-                        </React.Suspense>
+                        <Extender  key={i} component={MyComponent}>
+                        </Extender>
                     )
                 })
             }</div>
