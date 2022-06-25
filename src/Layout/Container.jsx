@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import Loading from './components/Loading'
 import Extender from './components/Extender'
+import legoSlice, {selectName, changeName} from '../features/lego/legoSlice'
+
 export default class Container extends Component{
     state = {
         components: new Map() // 缓存已经加载的组件,name来区分
