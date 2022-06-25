@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../features/counter/counterSlice'
-import legoReducer from '../Layout/reducer'
+import legoSlice from '../features/lego/legoSlice'
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    legoReducer,
+    lego: legoSlice,
   },
 })

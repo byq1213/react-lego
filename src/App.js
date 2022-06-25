@@ -3,11 +3,14 @@ import './App.less';
 // import 'antd/dist/antd.min.css'
 import Index from './Layout/Index'
 import {Counter} from './features/counter/Counter'
+import Lego from './features/lego/Lego'
 function App() {
   return (
     <div>
       <Counter></Counter>
-      <Index></Index>
+      {/* <Index></Index> */}
+      this is lego: 
+      <Lego></Lego>
     </div>
   );
 }

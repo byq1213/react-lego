@@ -1,11 +1,11 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 // import ImgText from '../Component/ImgText'
 import Components from '../Components'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch,connect } from 'react-redux'
 import { addComponent } from './reducer'
 import {Button, Card} from 'antd'
-console.log('Components :>> ', Components);
-
+import legoSlice, {selectName, changeName} from '../features/lego/legoSlice'
+// const dispatch = useDispatch();
 class List extends Component{
     componentList = [
         {
@@ -13,17 +13,18 @@ class List extends Component{
             img: ''
         }
     ]
-    pageConfig = useSelector((state) => state.pageConfig)
-     dispatch = useDispatch()
+    // pageConfig = useSelector((state) => state.pageConfig)
     add = ()=>{
-        this.dispatch(addComponent())
+        this.props.dispatch(addComponent())
     }
+
     render(){
         const {componentList, props} = this;
-        const {onAddCompnent} = props;
+        const {onAddCompnent, dispatch} = props;
+        console.log('this :>> ', this);
         return (
             <div className='left-list'>
-                <Button onClick={this.add}>Add</Button>
+                <input type="text" onChange={(e)=> dispatch(changeName({newName: e.target.value}))} />
                 <ul className='left-list__main'>
                     {Components.map((v, i)=>{
                         return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
@@ -34,4 +35,4 @@ class List extends Component{
         )
     }
 }
-export default List
+export default connect(selectName)(List)
