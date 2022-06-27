@@ -2,37 +2,24 @@ import React, {Component} from 'react';
 // import ImgText from '../Component/ImgText'
 import Components from '../Components'
 import { useSelector, useDispatch,connect } from 'react-redux'
-import { addComponent } from './reducer'
 import {Button, Card} from 'antd'
-import legoSlice, {selectName, changeName} from '../features/lego/legoSlice'
-// const dispatch = useDispatch();
-class List extends Component{
-    componentList = [
-        {
-            name: 'img-text',
-            img: ''
-        }
-    ]
-    // pageConfig = useSelector((state) => state.pageConfig)
-    add = ()=>{
-        this.props.dispatch(addComponent())
+import {addComponent} from '../features/lego/legoSlice'
+export default function List (){
+    // const count = useSelector((state) => state.counter.value)
+    const dispatch = useDispatch()
+    const storeLegoState = useSelector(state => state.lego);
+    const onAddCompnent = (v)=>{
+        console.log('storeLegoState :>> ', storeLegoState);
+        dispatch(addComponent(v))
     }
-
-    render(){
-        const {componentList, props} = this;
-        const {onAddCompnent, dispatch} = props;
-        console.log('this :>> ', this);
-        return (
-            <div className='left-list'>
-                <input type="text" onChange={(e)=> dispatch(changeName({newName: e.target.value}))} />
-                <ul className='left-list__main'>
-                    {Components.map((v, i)=>{
-                        return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
-                    })}
-                </ul>
-            </div>
-
-        )
-    }
+    return (
+        <div className='left-list'>
+            <input type="text"  />
+            <ul className='left-list__main'>
+                {Components.map((v, i)=>{
+                    return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
+                })}
+            </ul>
+        </div>
+    )
 }
-export default connect(selectName)(List)

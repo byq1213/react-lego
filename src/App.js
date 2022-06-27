@@ -4,14 +4,15 @@ import './App.less';
 import Index from './Layout/Index'
 import {Counter} from './features/counter/Counter'
 import Lego from './features/lego/Lego'
-function App() {
+function App(props) {
+  
+  console.log('APP props', props)
   return (
-    <div>
-      <Counter></Counter>
-      {/* <Index></Index> */}
-      this is lego: 
-      <Lego></Lego>
-    </div>
+    <>
+      {/* <Counter></Counter> */}
+      <Index></Index>
+      {/* <Lego></Lego> */}
+    </>
   );
 }
 

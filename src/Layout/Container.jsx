@@ -1,35 +1,32 @@
 import React, {Component} from 'react'
 import Loading from './components/Loading'
-import Extender from './components/Extender'
+import Extender from './components/Extender/index'
 import legoSlice, {selectName, changeName} from '../features/lego/legoSlice'
-
-export default class Container extends Component{
-    state = {
-        components: new Map() // 缓存已经加载的组件,name来区分
-    }
-    // 加载新组件或者复用已经加载的
-    createNewComponent = (name)=>{
-        const {components}= this.state
-        if(components.has(name)){
-            let MyComponent = components.get( name)
-            return MyComponent
-        }
-        let MyComponent = React.lazy(()=> import('../Components/'+ name +'/index.jsx'))
-        components.set(name, MyComponent)
+import {useSelector} from 'react-redux'
+let components = new Map()
+let createNewComponent = (name)=>{
+    if(components.has(name)){
+        let MyComponent = components.get( name)
         return MyComponent
     }
-     render(){
-        return (
-            <div className='container'>{
-                this.props.pageConfig.map((v, i)=>{
-                    // let MyComponent = React.lazy(()=> import('../Components/'+v)) // 每次的变更组件都会重进加载
-                    let MyComponent = this.createNewComponent(v)
-                    return (
-                        <Extender  key={i} component={MyComponent}>
-                        </Extender>
-                    )
-                })
-            }</div>
-        )
-    }
+    let MyComponent = React.lazy(()=> import('../Components/'+ name +'/index.jsx'))
+    components.set(name, MyComponent)
+    return MyComponent
+}
+export default function Container(){
+
+    const storeLegoState = useSelector(state => state.lego);
+    console.log('container render')
+    return (
+        <div className='container'>{
+            storeLegoState.pageConfig.map((v, i)=>{
+                // let MyComponent = React.lazy(()=> import('../Components/'+v)) // 每次的变更组件都会重进加载
+                let MyComponent = createNewComponent(v.name)
+                return (
+                    <Extender data={v}  key={i} index={i} component={MyComponent}>
+                    </Extender>
+                )
+            })
+        }</div>
+    )
 }

@@ -1,0 +1,16 @@
+// @import'@/style/var.less';  // 别名还不会搞
+@import '../../../style/var.less';
+.@{extenderName} {
+    position: relative;
+    .@{extenderName}__comp--active{
+        border: 3px dashed #ff8484;
+    };
+    
+    .@{extenderName}__btn-group{
+        bottom: -10px;
+        /* left: 0; */
+        position: absolute;
+        right: 0;
+        z-index: 100;
+    }
+}

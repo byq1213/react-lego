@@ -9,6 +9,7 @@ class Lego extends Component {
     return (
       <div>
         <button onClick={this.legoChange}>legoChange</button>
+        <button onClick={this.addComponent}>legoChange</button>
       </div>
     )
   }
