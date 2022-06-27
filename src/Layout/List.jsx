@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Components from '../Components'
 import { useSelector, useDispatch,connect } from 'react-redux'
 import {Button, Card} from 'antd'
-import {addComponent} from '../features/lego/legoSlice'
+import {addComponent, setDragComp} from '../features/lego/legoSlice'
 export default function List (){
     // const count = useSelector((state) => state.counter.value)
     const dispatch = useDispatch()
@@ -12,12 +12,24 @@ export default function List (){
         console.log('storeLegoState :>> ', storeLegoState);
         dispatch(addComponent(v))
     }
+    const dragStateHandle = ({componentData, index}, e)=>{
+        dispatch(setDragComp({componentData}))
+        // console.log('componentData :>> ', componentData);
+        // console.log('e :>> ', e);
+        // e.dataTransfer.setData('index', index)
+        // e.dataTransfer.setData('componentData', componentData)
+
+    }
     return (
         <div className='left-list'>
-            <input type="text"  />
-            <ul className='left-list__main'>
+            <ul className='left-list__main'
+            >
                 {Components.map((v, i)=>{
-                    return <li key={i} onClick={()=>onAddCompnent(v)}>{v.name}</li>
+                    return <li 
+                            draggable
+                            key={i}
+                            onDragStart={(e)=> dragStateHandle({componentData: v, index: i}, e)}
+                            onClick={()=>onAddCompnent(v)}>{v.name}</li>
                 })}
             </ul>
         </div>

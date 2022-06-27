@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const legoSlice = createSlice({
   name: "lego",
   initialState: {
-    pageConfig: []
+    pageConfig: [],
+    currentDragComponent: null
   },
   reducers: {
     changeName: (state, action) => {
@@ -26,10 +27,14 @@ export const legoSlice = createSlice({
     delComponent:(state, action)=>{
       console.log('action', action)
       state.pageConfig.splice(action.payload.index, 1)
+    },
+    setDragComp:( state, action)=>{
+      state.currentDragComponent = action.payload.componentData
     }
   }
 });
-export const { changeName, addComponent,setShowExt, delComponent} = legoSlice.actions;
+// console.log('legoSlice.actions', legoSlice.actions)
+export const { changeName, addComponent,setShowExt, delComponent, setDragComp} = legoSlice.actions;
 
 export const selectName = (state) => state.name;
 export default legoSlice.reducer;
