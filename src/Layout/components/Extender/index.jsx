@@ -19,8 +19,19 @@ export default function Extender(props){
     if(data.showExt){
         extClassName.push(`${name}__comp--active`)
     }
+    const dragHandle = ()=>{
+    }
+    const dragendHandle = (e)=>{
+        console.log('e :>> ', e);
+    }
+    const {top,left} = props.data;
+    const styleObj = {
+        left,
+        top
+    }
     return (
-        <div className={`${name}`}>
+        
+        <div className={`${name}`} style={styleObj} onDrag={dragHandle} draggable onDragEnd={dragendHandle}>
             <div onClick={clickHandle} className={extClassName}>
                 <React.Suspense fallback={<Loading/>}>
                     <MyComponent ></MyComponent>
