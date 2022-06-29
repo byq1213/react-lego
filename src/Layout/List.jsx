@@ -14,7 +14,7 @@ export default function List (){
     }
 
     const dragStateHandle = ({componentData, index}, e)=>{
-        dispatch(setDragComp({componentData}))
+        dispatch(setDragComp({componentData, dragType: 'add'}))
         // console.log('componentData :>> ', componentData);
         // console.log('e :>> ', e);
         // e.dataTransfer.setData('index', index)

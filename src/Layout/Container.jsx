@@ -1,7 +1,7 @@
 import React, { useRef, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import Extender from './components/Extender/index'
-import {addComponent, setDragComp, setXYLine} from '../features/lego/legoSlice'
+import {addComponent, setContainer, setDragComp, setXYLine ,updateComponentPosition} from '../features/lego/legoSlice'
 import {useSelector} from 'react-redux'
 import { getRelativePosition } from 'utils/dom'
 
@@ -54,13 +54,16 @@ export default function Container(){
     }
 
     const dropHandle = (e)=>{
-        // console.log('e.target :>> ', e.target);
+        console.log('container drop')
+        // 释放时,方可拿到辅助线坐标,也就是组件相对位置和组件信息
         if(storeLegoState.currentDragComponent){
-            dispatch(addComponent(storeLegoState.currentDragComponent));
-            // document.removeEventListener('mouseover', mouseOverHandle)
-            dispatch(setDragComp({
-                componentData: null
-            }))
+            if(storeLegoState.dragType === 'add'){
+                dispatch(addComponent(storeLegoState.currentDragComponent));
+                dispatch(setDragComp({
+                    componentData: null,
+                    dragType: null
+                }))
+            }
         }
     }
     const dragoverHandle = (e)=>{
@@ -71,9 +74,15 @@ export default function Container(){
         // console.log('dragover', e.target)
         // console.log('dragover :>> ', e.clientX, e.clientY);
         const [x, y ] = getRelativePosition(containerRef.current)
+        // 当拖拽是,变更辅助线坐标
         dispatch(setXYLine({
             x: e.clientX - x,
             y: e.clientY - y
+        }))
+        dispatch(setContainer({
+            // ref: containerRef.current,
+            positionX: x,
+            positionY: y
         }))
         e.preventDefault()
     }
@@ -94,7 +103,9 @@ export default function Container(){
                 // let MyComponent = React.lazy(()=> import('../Components/'+v)) // 每次的变更组件都会重进加载
                 let MyComponent = createNewComponent(v.name)
                 return (
-                    <Extender  data={v}  key={i} index={i} component={MyComponent}>
+                    <Extender style={{left: v.left + 'px', top: v.top + 'px'}}  data={v}  key={i} index={i} component={MyComponent}
+                        
+                    >
                     </Extender>
                 )
             })
